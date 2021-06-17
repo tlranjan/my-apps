@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>DevPortal</title>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="css/xeditable.min.css">
+<link rel="stylesheet" href="css/devportal.css">
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.dataTables.min.js"></script>
+<script src="js/angular.min.js"></script>
+<script src="js/angular-route.min.js"></script>
+<script src="js/xeditable.min.js"></script>
+<script src="js/app.js"></script>
+<script src="js/manage_my_machines.js"></script>
+<script src="js/my_requests.js"></script>
+<script src="js/published_orgs_catalogs.js"></script>
+<script src="js/my_org_requests.js"></script>
+<script src="js/manage_myorg_catalogs.js"></script>
+<script src="js/manage_myorgs_machine.js"></script>
+<script src="js/my_orgs_request.js"></script>
+<script src="js/manage_myorgs_catalog.js"></script>
+<script src="js/manage_myorgs_endpoint.js"></script>
+<script src="js/manage_myorgs_user.js"></script>
+<script src="js/manage_myorgs.js"></script>
+<script src="js/manage_all_machines.js"></script>
+<script src="js/all_requests.js"></script>
+<script src="js/manage_all_catalogs.js"></script>
+<script src="js/manage_all_endpoints.js"></script>
+<script src="js/manage_all_users.js"></script>
+<script src="js/manage_all_orgs.js"></script>
+<script src="js/devportal.js"></script>
+</head>
+<body ng-app="devportal" ng-controller="devportal as devportal" ng-cloak>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container-fluid" style="margin-left:2%;margin-right:2%;">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#!/"><font size="9" face="Agency FB">devportal</font></a>
+			</div>
+		</div>
+		<div class="container-fluid" style="margin-left:1%;margin-right:2%;">
+			<ul class="nav navbar-nav">
+				<li><a href="#!/">Home</a></li>
+				<li ng-repeat="(key, value) in getusermenu"><a ng-href="#!{{key}}">{{value}}</a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="/logout">Logout</a></li>
+			</ul>
+		</div>
+	</nav>
+	<div style="margin-left:3%;margin-right:3%;margin-top:100px;margin-bottom:100px;" ng-view></div>
+	<nav class="navbar navbar-inverse navbar-fixed-bottom">
+		<div class="container-fluid" style="margin-left:1%;margin-right:2%;">
+			<ul class="nav navbar-nav navbar-center">
+				<li><a href="#">&copy; DevPortal</a></li>
+			</ul>
+		</div>
+	</nav>
+</body>
+</html>

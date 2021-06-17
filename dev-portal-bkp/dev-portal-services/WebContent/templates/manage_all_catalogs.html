@@ -1,0 +1,139 @@
+<br/>
+<h3>Add Cloud Catalogs</h3>
+<div class="tab" ng-init="ctrl.getallawscatalog();ctrl.getallorganizationnames();ctrl.getallawsendpointnames();ctrl.getbooleanvalues();">
+  <button class="tablinks" onclick="openEndpoint(event, 'amazon-aws')">Amazon AWS</button>
+  <button class="tablinks" onclick="openEndpoint(event, 'vmware-vsphere')">VMware vSphere</button>
+  <button class="tablinks" onclick="openEndpoint(event, 'microsoft-azure')">Microsoft Azure</button>
+  <button class="tablinks" onclick="openEndpoint(event, 'google-cloud')">Google Cloud</button>
+  <button class="tablinks" onclick="openEndpoint(event, 'open-stack')">Open Stack</button>
+</div>
+
+<div id="amazon-aws" class="tabcontent">
+  <div class="container" style="width: 100%">
+		<table>
+			<tr>
+				<td style="width: 45%; float: left; vertical-align: top;">
+					<h3>Add AWS Catalogs</h3>
+					<form>
+						<div class="input-group" style="width: 100%;">
+							<span class="input-group-addon" style="width:36%;">Catalog Name</span> <input type="text" class="form-control" placeholder="Catalog Name" ng-model="awscatalog.catalogName" required>
+						</div>
+						<br />
+						<div class="input-group" style="width: 100%;">
+							<span class="input-group-addon" style="width:36%;">Catalog Description</span> <input type="text" class="form-control" placeholder="Catalog Description" ng-model="awscatalog.catalogDescription" required>
+						</div>
+						<br />
+						<div class="input-group" style="width: 100%;">
+							<span class="input-group-addon" style="width:36%;">Catalog Owner</span> <input type="text" class="form-control" placeholder="Catalog Owner" ng-model="awscatalog.catalogOwner" required>
+						</div>
+						<br />
+						<div class="input-group" style="width: 100%">
+							<span class="input-group-addon" style="width:36%;">Select Organization</span><select class="form-control" ng-model="awscatalog.organizationName"><option ng-repeat="organizationname in getallorganizationnames">{{organizationname}}</option></select>
+						</div>
+						<br />
+						<div class="input-group" style="width: 100%">
+							<span class="input-group-addon" style="width:36%;">Select Endpoint</span><select class="form-control" ng-model="awscatalog.endpointName"><option ng-repeat="endpointname in getallawsendpointnames">{{endpointname}}</option></select>
+						</div>
+						<br />
+						<div class="input-group" style="width: 100%;">
+							<span class="input-group-addon" style="width:36%;">AWS AMI ID</span> <input type="text" class="form-control" placeholder="AWS AMI ID" ng-model="awscatalog.imageId" required>
+						</div>
+						<br />
+						<div class="input-group" style="width: 100%;">
+							<span class="input-group-addon" style="width:36%;">Instance Type</span> <input type="text" class="form-control" placeholder="Instance Type" ng-model="awscatalog.instanceType" required>
+						</div>
+						<br />
+						<div class="input-group" style="width: 100%;">
+							<span class="input-group-addon" style="width:36%;">Key Pair Name</span> <input type="text" class="form-control" placeholder="Key Pair Name" ng-model="awscatalog.keyPairName" required>
+						</div>
+						<br />
+						<div class="input-group" style="width: 100%">
+							<span class="input-group-addon" style="width:36%;">Security Group Name</span> <input type="text" class="form-control" placeholder="Security Group Name" ng-model="awscatalog.securityGroupName" required>
+						</div>
+						<br />
+						<div class="input-group" style="width: 100%">
+							<span class="input-group-addon" style="width:36%;">Publish</span><select class="form-control" ng-model="awscatalog.isPublished"><option>True</option><option>False</option></select>
+						</div>
+						<br />
+						<button type="reset" class="btn btn-primary btn-block" ng-click="ctrl.addawscatalog(awscatalog);reset();">Add Catalog</button>
+					</form>
+				</td>
+				<td style="width: 45%; float: right; vertical-align: top;"><br /><b>What is Endpoint?</b><br />
+					<p>Inject PACKET_LOSS_PERCENTAGE=5% on vRealize Automation Appliance Node #1, Run workflow for network latency, Remediate fault and run workflow again.</p>
+				</td>
+			</tr>
+		</table>
+		<br />
+		<br />
+		<h3>List of AWS Catalogs:</h3>
+	<table class="table table-striped table-hover table-condensed">
+		<thead>
+			<tr>
+				<th>Catalog Name</th>
+				<th>Catalog Description</th>
+				<th>Catalog Owner</th>
+				<th>Organization Name</th>
+				<th>Endpoint Name</th>
+				<th>AMI Image Id</th>
+				<th>Instance Type</th>
+				<th>Key Pair Name</th>
+				<th>Security Group Name</th>
+				<th>Published</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="awscatalog in getallawscatalog">
+				<td><span editable-text="awscatalog.catalogName" e-name="catalogName" e-form="rowform" e-required>{{ awscatalog.catalogName }}</span></td>
+				<td><span editable-text="awscatalog.catalogDescription" e-name="catalogDescription" e-form="rowform" e-required>{{ awscatalog.catalogDescription }}</span></td>
+				<td><span editable-text="awscatalog.catalogOwner" e-name="catalogOwner" e-form="rowform" e-required>{{ awscatalog.catalogOwner }}</span></td>
+				<td><span editable-select="awscatalog.organizationName" e-name="organizationName" e-form="rowform" e-ng-options="organization for organization in getallorganizationnames">{{awscatalog.organizationName}}</span></td>
+				<td><span editable-select="awscatalog.endpointName" e-name="endpointName" e-form="rowform" e-ng-options="endpointname for endpointname in getallawsendpointnames">{{awscatalog.endpointName}}</span></td>
+				<td><span editable-text="awscatalog.imageId" e-name="imageId" e-form="rowform" e-required>{{ awscatalog.imageId }}</span></td>
+				<td><span editable-text="awscatalog.instanceType" e-name="instanceType" e-form="rowform" e-required>{{ awscatalog.instanceType }}</span></td>
+				<td><span editable-text="awscatalog.keyPairName" e-name="keyPairName" e-form="rowform" e-required>{{ awscatalog.keyPairName }}</span></td>
+				<td><span editable-text="awscatalog.securityGroupName" e-name="securityGroupName" e-form="rowform" e-required>{{ awscatalog.securityGroupName }}</span></td>
+				<td><span editable-select="awscatalog.isPublished" e-name="isPublished" e-form="rowform" e-ng-options="booleanvalue for booleanvalue in getbooleanvalues">{{awscatalog.isPublished}}</span></td>
+				<td style="white-space: nowrap">
+					<form editable-form name="rowform" onbeforesave="ctrl.updateawscatalog(awscatalog);" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == awscatalog">
+						<button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">save</button>
+						<button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default">cancel</button>
+					</form>
+					<div class="buttons" ng-show="!rowform.$visible">
+						<button class="btn btn-primary" ng-click="">deploy</button>
+						<button class="btn btn-primary" ng-click="rowform.$show()">edit</button>
+						<button class="btn btn-danger" ng-click="ctrl.deleteawscatalog(awscatalog.id);getallawscatalog.splice($index,1);">del</button>
+					</div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
+</div>
+<div id="vmware-vsphere" class="tabcontent">
+  <div class="container" style="width: 100%">
+		Implementation under progress...
+		<br />
+		<br />
+	</div>
+</div>
+<div id="microsoft-azure" class="tabcontent">
+  <div class="container" style="width: 100%">
+		Implementation under progress...
+		<br />
+		<br />
+	</div>
+</div>
+<div id="google-cloud" class="tabcontent">
+   <div class="container" style="width: 100%">
+		Implementation under progress...
+		<br />
+		<br />
+	</div>
+</div>
+<div id="open-stack" class="tabcontent">
+   <div class="container" style="width: 100%">
+		Implementation under progress...
+		<br />
+		<br />
+	</div>
+</div>

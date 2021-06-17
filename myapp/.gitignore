@@ -1,0 +1,11 @@
+.metadata
+.project
+.classpath
+target/
+Servers
+test-output
+.settings/
+/commit-msg
+.gitconfig
+*.log
+*.ser

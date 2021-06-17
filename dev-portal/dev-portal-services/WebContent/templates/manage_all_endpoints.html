@@ -1,0 +1,184 @@
+<br/>
+<h3>Add Cloud Endpoints</h3>
+<div ng-controller="manage_all_endpoints as manage_all_endpoints" ng-cloak>
+<div class="tab">
+  <button class="tablinks active" onclick="openEndpoint(event, 'amazon-aws')">Amazon AWS</button>
+  <button class="tablinks" onclick="openEndpoint(event, 'vmware-vsphere')">VMware vSphere</button>
+  <button class="tablinks" onclick="openEndpoint(event, 'microsoft-azure')">Microsoft Azure</button>
+  <button class="tablinks" onclick="openEndpoint(event, 'google-cloud')">Google Cloud</button>
+  <button class="tablinks" onclick="openEndpoint(event, 'open-stack')">Open Stack</button>
+</div>
+<div id="amazon-aws" class="tabcontent active" style="display:block">
+  <div class="container" style="width: 100%">
+		<table>
+			<tr>
+				<td style="width: 45%; float: left; vertical-align: top;">
+					<h3>Add AWS Account</h3>
+					<form>
+						<div class="input-group" style="width: 100%">
+							<span class="input-group-addon" style="width:36%;">Select Organization</span><select class="form-control" ng-model="awsendpoint.organization"><option ng-repeat="organization in manage_all_endpoints.getallorganizationdetailsnames">{{organization}}</option></select>
+						</div>
+						<br />
+						<div class="input-group" style="width: 100%;">
+							<span class="input-group-addon" style="width:36%;">Endpoint Name</span> <input type="text" class="form-control" placeholder="Endpoint Name" ng-model="awsendpoint.name" required>
+						</div>
+						<br />
+						<div class="input-group" style="width: 100%">
+							<span class="input-group-addon" style="width:36%;">Access Key</span> <input type="text" class="form-control" placeholder="Access Key" ng-model="awsendpoint.accessKey" required>
+						</div>
+						<br />
+						<div class="input-group" style="width: 100%">
+							<span class="input-group-addon" style="width:36%;">Secret Key</span> <input type="password" class="form-control" placeholder="Secret Key" ng-model="awsendpoint.secretKey" required>
+						</div>
+						<br />
+						<button type="button" class="btn btn-primary btn-block" ng-click="manage_all_endpoints.getawscomputes(awsendpoint);">Get AWS Computes</button>
+						<br />
+						<div class="input-group" style="width: 100%">
+							<span class="input-group-addon" style="width:36%;">AWS Computes</span><select class="form-control" ng-model="awsendpoint.region"><option ng-repeat="region in manage_all_endpoints.getawscomputes">{{region}}</option></select>
+						</div>
+						<br />
+						<button type="reset" class="btn btn-primary btn-block" ng-click="manage_all_endpoints.addawsendpointmodel(awsendpoint);reset();">Add Endpoint</button>
+					</form>
+				</td>
+				<td style="width: 45%; float: right; vertical-align: top;"><br /><b>What is Endpoint?</b><br />
+					<p>Inject PACKET_LOSS_PERCENTAGE=5% on vRealize Automation Appliance Node #1, Run workflow for network latency, Remediate fault and run workflow again.</p>
+				</td>
+			</tr>
+		</table>
+		<br />
+		<br />
+		<h3>List of AWS Endpoints:</h3>
+	<table class="table table-striped table-hover table-condensed">
+		<thead>
+			<tr>
+				<th>Organization Name</th>
+				<th>Endpoint Name</th>
+				<th>Access Key</th>
+				<th>Secret Key</th>
+				<th>AWS Region</th>
+				<th>Delete Endpoint</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="awsendpoint in manage_all_endpoints.getallawsendpointmodel">
+				<td><span editable-select="awsendpoint.organization" e-name="organization" e-form="rowform" e-ng-options="organizations for organizations in manage_all_endpoints.getallorganizationdetailsnames">{{awsendpoint.organization}}</span></td>
+				<td><span editable-text="awsendpoint.name" e-name="name" e-form="rowform" e-required>{{ awsendpoint.name }}</span></td>
+				<td><span editable-text="awsendpoint.accessKey" e-name="accessKey" e-form="rowform" e-required>{{ awsendpoint.accessKey }}</span></td>
+				<td><span editable-text="awsendpoint.secretKey" e-name="secretKey" e-form="rowform" e-required>xxxxxxxxxx</span></td>
+				<td><span editable-select="awsendpoint.region" e-name="region" e-form="rowform" e-ng-options="regions for regions in manage_all_endpoints.getawscomputes">{{awsendpoint.region}}</span></td>
+				<td style="white-space: nowrap">
+					<form editable-form name="rowform" onshow="manage_all_endpoints.getawscomputes(awsendpoint);" onbeforesave="manage_all_endpoints.updateawsendpointmodel(awsendpoint);" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == awsendpoint">
+						<button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">save</button>
+						<button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default">cancel</button>
+					</form>
+					<div class="buttons" ng-show="!rowform.$visible">
+						<button class="btn btn-primary" ng-click="rowform.$show()">edit</button>
+						<button class="btn btn-danger" ng-click="manage_all_endpoints.deleteawsendpointmodel(awsendpoint.id);manage_all_endpoints.getallawsendpointmodel.splice($index,1);">del</button>
+					</div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
+</div>
+<div id="vmware-vsphere" class="tabcontent">
+  <div class="container" style="width: 100%">
+		<table>
+			<tr>
+				<td style="width: 45%; float: left; vertical-align: top;">
+					<h3>Add VMware vSphere Account</h3>
+					<form>
+						<div class="input-group" style="width: 100%">
+							<span class="input-group-addon" style="width:36%;">Select Organization</span><select class="form-control" ng-model="vsphereendpoint.organization"><option ng-repeat="organization in manage_all_endpoints.getallorganizationdetailsnames">{{organization}}</option></select>
+						</div>
+						<br />
+						<div class="input-group" style="width: 100%;">
+							<span class="input-group-addon" style="width:36%;">Endpoint Name</span> <input type="text" class="form-control" placeholder="Endpoint Name" ng-model="vsphereendpoint.name" required>
+						</div>
+						<br />
+						<div class="input-group" style="width: 100%">
+							<span class="input-group-addon" style="width:36%;">vSphere SDK URL</span> <input type="text" class="form-control" placeholder="https://vSphere Address/sdk" ng-model="vsphereendpoint.sdkUrl" required>
+						</div>
+						<br />
+						<div class="input-group" style="width: 100%">
+							<span class="input-group-addon" style="width:36%;">vSphere User</span> <input type="text" class="form-control" placeholder="vSphere User Name" ng-model="vsphereendpoint.user" required>
+						</div>
+						<br />
+						<div class="input-group" style="width: 100%">
+							<span class="input-group-addon" style="width:36%;">vSphere Password</span> <input type="password" class="form-control" placeholder="vSphere Password" ng-model="vsphereendpoint.password" required>
+						</div>
+						<br />
+						<button type="button" class="btn btn-primary btn-block" ng-click="manage_all_endpoints.getvspherecomputes(vsphereendpoint);">Get vSphere Computes</button>
+						<br />
+						<div class="input-group" style="width: 100%">
+							<span class="input-group-addon" style="width:36%;">vSphere Computes</span><select class="form-control" ng-model="vsphereendpoint.computes"><option ng-repeat="vsphereCompute in manage_all_endpoints.getvspherecomputes">{{vsphereCompute}}</option></select>
+						</div>
+						<br />
+						<button type="reset" class="btn btn-primary btn-block" ng-click="manage_all_endpoints.addvsphereendpointmodel(vsphereendpoint);reset();">Add Endpoint</button>
+					</form>
+				</td>
+				<td style="width: 45%; float: right; vertical-align: top;"><br /><b>What is Endpoint?</b><br />
+					<p>Inject PACKET_LOSS_PERCENTAGE=5% on vRealize Automation Appliance Node #1, Run workflow for network latency, Remediate fault and run workflow again.</p>
+				</td>
+			</tr>
+		</table>
+		<br />
+		<br />
+		<h3>List of VMware vCenter Endpoints:</h3>
+	<table class="table table-striped table-hover table-condensed">
+		<thead>
+			<tr>
+				<th>Organization Name</th>
+				<th>Endpoint Name</th>
+				<th>vSphere SDK URL</th>
+				<th>vSphere User</th>
+				<th>vSphere Password</th>
+				<th>vSphere Computes</th>
+				<th>Delete Endpoint</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="vsphereendpoint in manage_all_endpoints.getallvsphereendpointmodel">
+				<td><span editable-select="vsphereendpoint.organization" e-name="organization" e-form="rowform" e-ng-options="organization for organization in manage_all_endpoints.getallorganizationdetailsnames">{{vsphereendpoint.organization}}</span></td>
+				<td><span editable-text="vsphereendpoint.name" e-name="name" e-form="rowform" e-required>{{ vsphereendpoint.name }}</span></td>
+				<td><span editable-text="vsphereendpoint.sdkUrl" e-name="sdkUrl" e-form="rowform" e-required>{{ vsphereendpoint.sdkUrl }}</span></td>
+				<td><span editable-text="vsphereendpoint.user" e-name="user" e-form="rowform" e-required>{{ vsphereendpoint.user }}</span></td>
+				<td><span editable-text="vsphereendpoint.password" e-name="password" e-form="rowform" e-required>xxxxxxxxxx</span></td>
+				<td><span editable-select="vsphereendpoint.computes" e-name="computes" e-form="rowform" e-ng-options="compute for compute in manage_all_endpoints.getvspherecomputes">{{vsphereendpoint.computes}}</span></td>
+				<td style="white-space: nowrap">
+					<form editable-form name="rowform" onshow="manage_all_endpoints.getvspherecomputes(vsphereendpoint);" onbeforesave="manage_all_endpoints.updatevsphereendpointmodel(vsphereendpoint);" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == vsphereendpoint">
+						<button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">save</button>
+						<button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default">cancel</button>
+					</form>
+					<div class="buttons" ng-show="!rowform.$visible">
+						<button class="btn btn-primary" ng-click="rowform.$show()">edit</button>
+						<button class="btn btn-danger" ng-click="manage_all_endpoints.deletevsphereendpointmodel(vsphereendpoint.id);manage_all_endpoints.getallvsphereendpointmodel.splice($index,1);">del</button>
+					</div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
+</div>
+<div id="microsoft-azure" class="tabcontent">
+  <div class="container" style="width: 100%">
+		Implementation under progress...
+		<br />
+		<br />
+	</div>
+</div>
+<div id="google-cloud" class="tabcontent">
+   <div class="container" style="width: 100%">
+		Implementation under progress...
+		<br />
+		<br />
+	</div>
+</div>
+<div id="open-stack" class="tabcontent">
+   <div class="container" style="width: 100%">
+		Implementation under progress...
+		<br />
+		<br />
+	</div>
+</div>
+</div>

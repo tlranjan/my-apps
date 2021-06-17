@@ -1,0 +1,30 @@
+<br/>
+<h3>Manage All Machines</h3>
+<div ng-controller="manage_all_machines as manage_all_machines" ng-cloak>
+<table class="table table-striped table-hover table-condensed">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>IP</th>
+			<th>State</th>
+			<th>Catalog</th>
+			<th>Owner</th>
+			<th>Organization</th>
+			<th>Endpoint</th>
+			<th>Platform</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="machinemodel in manage_all_machines.getallmachinemodel">
+			<td>{{machinemodel.name}}</td>
+			<td>{{machinemodel.ip}}</td>
+			<td>{{machinemodel.state}}</td>
+			<td>{{machinemodel.catalog}}</td>
+			<td>{{machinemodel.owner}}</td>
+			<td>{{machinemodel.organization}}</td>
+			<td>{{machinemodel.endpoint}}</td>
+			<td>{{machinemodel.platform}}</td>
+		</tr>
+	</tbody>
+</table>
+</div>
